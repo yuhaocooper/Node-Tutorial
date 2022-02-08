@@ -1,1 +1,0 @@
-This file was created by Node.js!Appending a sample text for this challenge.
