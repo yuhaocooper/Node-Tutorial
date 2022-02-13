@@ -16,7 +16,7 @@ const event = {
     printGuestList() {
         console.log('Guest list for ' + this.name)
         this.guestList.forEach((x) => {
-            console.log(x + ' is attending ', + this.name)
+            console.log(x + ' is attending ' + this.name)
         })
     }
 }
