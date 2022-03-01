@@ -1,7 +1,30 @@
 const request = require('request')
 
-const url = 'http://api.weatherstack.com/current?access_key=d3e0712d4efe15438b81f277f73d3cd2&query=37.8267,-122.4233&units=f'
+// const url = 'http://api.weatherstack.com/current?access_key=d3e0712d4efe15438b81f277f73d3cd2&query=37.8267,-122.4233&units=f'
 
-request({ url: url, json: true }, (error, response) => {
-    console.log(response.body.current.weather_descriptions[0] + '. It is currently ' + response.body.current.temperature + ' degrees out. There is ' + response.body.current.precip + '% chance of rain.')
+// request({ url: url, json: true }, (error, response) => {
+//     if (error) {
+//         console.log('Unable to connect to weather service!')
+//     } else if (response.body.error) {
+//         console.log('Unable to find location')
+//     }
+//     else{
+//         console.log(response.body.current.weather_descriptions[0] + '. It is currently ' + response.body.current.temperature + ' degrees out. There is ' + response.body.current.precip + '% chance of rain.')
+//     }
+// })
+
+
+const geocodeURL = 'https://api.mapbox.com/geocoding/v5/mapbox.places/philadelphia.json?access_token=pk.eyJ1IjoieXVoYW9jb29wZXIiLCJhIjoiY2wwODVwYTF5MDA3NjNibXhrc3RjMGJ2biJ9.rT-OmGrNRjotkk4fOuEMLw'
+
+request({ url: geocodeURL, json: true}, (error, response) => {
+    if (error){
+        console.log('Unable to connect to location services!')
+    } else if (response.body.features.length === 0){
+        console.log('Try again with different search term')
+    }     
+    else{
+        const latitude = response.body.features[0].center[1]
+        const longitude = response.body.features[0].center[0]
+        console.log(latitude, longitude)
+    }
 })
